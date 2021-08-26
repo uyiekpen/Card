@@ -1,0 +1,115 @@
+import React, {useState, useEffect, useRef} from 'react'
+import "./OurBuild.css"
+import img from "./assets/0.png"
+import img1 from "./assets/1.png"
+import img2 from "./assets/2.png"
+import img3 from "./assets/3.png"
+import img4 from "./assets/4.png"
+import img5 from "./assets/5.png"
+import trophy from "./assets/trophy.png"
+
+const OurBuild = () => {
+  const myRef = useRef()
+
+  const [me, setMe] = useState(null)
+  const [computer, setComputer] = useState(0)
+
+  const getRand = (min, max) => {
+    const myData = Math.floor(Math.random() * (max - min + 1)) + min
+    setComputer(myData)
+  }
+
+  useEffect(() => {
+    myRef.current = computer
+  }, [computer])
+
+  useEffect(() => {
+    setInterval(() => {
+      getRand(0, 5)
+    }, 3000)
+  }, [])
+
+  return (
+    <div className="container" >
+      <div className="containerTitle" >CodeLab</div>
+      <div className="containerDesc" >A simple Game Developed for Kids</div>
+     
+
+      <div className="containerBox" >
+        <div className="containerBox11" >
+          <div className="containerBoxes">
+            <img src={img} className="containerBoxesHolder" 
+            onClick={() => {
+              setMe(0)
+            }}
+            />
+            <img src={img1} className="containerBoxesHolder"
+            onClick={() => {
+              setMe(1)
+            }}/>
+            <img src={img2} className="containerBoxesHolder"
+            onClick={() => {
+              setMe(2)
+            }}/>
+            <img src={img3} className="containerBoxesHolder"
+            onClick={() => {
+              setMe(3)
+            }}/>
+            <img src={img4} className="containerBoxesHolder"
+            onClick={() => {
+              setMe(4)
+            }}/>
+
+            <img src={img5} className="containerBoxesHolder"
+            onClick={() => {
+              setMe(5)
+            }}/>
+          </div>
+          <div className="containerBoxesTitle">Me</div>
+        </div>
+       
+        <div className="containerBox11" >
+          <div className="containerBoxes">
+            <div className="containerBoxesHolder">{
+              myRef.current === 0 ? <img src={img} className="containerBoxesHolder" /> : 
+              myRef.current === 1 ? <img src={img1} className="containerBoxesHolder" /> : 
+              myRef.current === 2 ? <img src={img2} className="containerBoxesHolder" /> : 
+              myRef.current === 3 ? <img src={img3} className="containerBoxesHolder" /> : 
+              myRef.current === 4 ? <img src={img4} className="containerBoxesHolder" /> : 
+              myRef.current === 5 ? <img src={img5} className="containerBoxesHolder" /> : null 
+}</div>
+            
+          </div>
+          <div className="containerBoxesTitle"  >Computer</div>
+        </div>
+       
+      </div>
+      <div className="containerReult" >
+        <div className="containerReultOutput">result</div>
+        {/* <div className="containerReultOutput1">MyOutput: {me} || ComputerOutput: {computer}</div> */}
+        <div>
+          {
+            me === computer ? <div>Wow... You're Right </div>
+             : 
+            me !== computer ? 
+            <div>hmm... You're Wrong </div>
+             : 
+             me === null ?  <div> Null </div> : null
+          }
+
+
+          
+        </div>
+        <div>
+          {
+            me === computer ? <img src={trophy}/> : null 
+          }
+
+        </div>
+      </div>
+      
+    </div>
+  )
+}
+
+export default OurBuild
